@@ -110,7 +110,7 @@ U0 _LSPCI_PCILookUpDevs()
   CDoc *doc;
   if (dev.pci_head.next!=&dev.pci_head)
     return;
-  doc=DocRead("T:/System/Drivers/pci.ids",DOCF_PLAIN_TEXT|DOCF_NO_CURSOR);
+  doc=DocRead("::/System/Drivers/pci.ids",DOCF_PLAIN_TEXT|DOCF_NO_CURSOR);
   for (b=0;b<sys_pci_busses;b++)
     for (d=0;d<32;d++)
       for (f=0;f<8;f++) {
@@ -407,7 +407,7 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
     {
         c_port = Str2I64(argv[2]);
     }
-   
+
     c_addr.sin_family = AF_INET;
     c_addr.sin_port = htons(c_port);
     err = GetAddressForHost(argv[1], &c_addr.sin_addr);
@@ -454,7 +454,7 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         goto ftp_etx_close;
                     }
                     con->disable_echo = FALSE;
-                    ConPrint(con, "\n");                    
+                    ConPrint(con, "\n");
                     StrPrint(ftp_cmd, "PASS %s\r\n", im_pmt);
                     sendString(c_sock, ftp_cmd, 0);
                     resp = _FTP_GetResponse(c_sock, con);
@@ -505,13 +505,13 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         {
                             StrPrint(ftp_cmd, "CWD %s\r\n", im_argv[1]);
                             sendString(c_sock, ftp_cmd, 0);
-                            resp = _FTP_GetResponse(c_sock, con);                    
+                            resp = _FTP_GetResponse(c_sock, con);
                             Free(resp);
                         }
                         else
                         {
                             ConPrint(con, "usage: cd remote-directory\n");
-                        }                        
+                        }
                         goto ftp_im_loop;
                     }
                     if (!StrICmp(im_argv[0], "del"))
@@ -520,13 +520,13 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         {
                             StrPrint(ftp_cmd, "DELE %s\r\n", im_argv[1]);
                             sendString(c_sock, ftp_cmd, 0);
-                            resp = _FTP_GetResponse(c_sock, con);                    
+                            resp = _FTP_GetResponse(c_sock, con);
                             Free(resp);
                         }
                         else
                         {
                             ConPrint(con, "usage: del remote-file\n");
-                        }                        
+                        }
                         goto ftp_im_loop;
                     }
                     if (!StrICmp(im_argv[0], "dir") || !StrICmp(im_argv[0], "ls"))
@@ -596,7 +596,7 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                             MemCpy(&d_addr, &c_addr, sizeof(sockaddr_in));
                             d_port = _FTP_SetPassiveMode(c_sock, con);
                             d_addr.sin_port = htons(d_port);
-                            StrPrint(ftp_cmd, "RETR %s\r\n", im_argv[1]);                            
+                            StrPrint(ftp_cmd, "RETR %s\r\n", im_argv[1]);
                             d_sock = socket(AF_INET, SOCK_STREAM);
                             err = connect(d_sock, &d_addr, sizeof(d_addr));
                             {
@@ -641,12 +641,12 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                                 close(d_sock);
                             }
                             resp = _FTP_GetResponse(c_sock, con);
-                            Free(resp);                            
+                            Free(resp);
                         }
                         else
                         {
                             ConPrint(con, "usage: get remote-file [ local-file ]\n");
-                        }                        
+                        }
                         goto ftp_im_loop;
                     }
                     if (!StrICmp(im_argv[0], "mkdir"))
@@ -655,19 +655,19 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         {
                             StrPrint(ftp_cmd, "MKD %s\r\n", im_argv[1]);
                             sendString(c_sock, ftp_cmd, 0);
-                            resp = _FTP_GetResponse(c_sock, con);                    
+                            resp = _FTP_GetResponse(c_sock, con);
                             Free(resp);
                         }
                         else
                         {
                             ConPrint(con, "usage: mkdir directory-name\n");
-                        }                        
+                        }
                         goto ftp_im_loop;
                     }
                     if (!StrICmp(im_argv[0], "pwd"))
                     {
                         sendString(c_sock, "PWD\r\n", 0);
-                        resp = _FTP_GetResponse(c_sock, con);                    
+                        resp = _FTP_GetResponse(c_sock, con);
                         Free(resp);
                         goto ftp_im_loop;
                     }
@@ -739,7 +739,7 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         else
                         {
                             ConPrint(con, "usage: put local-file remote-file\n");
-                        }                        
+                        }
                         goto ftp_im_loop;
                     }
                     if (!StrICmp(im_argv[0], "rm"))
@@ -748,13 +748,13 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         {
                             StrPrint(ftp_cmd, "DELE %s\r\n", im_argv[1]);
                             sendString(c_sock, ftp_cmd, 0);
-                            resp = _FTP_GetResponse(c_sock, con);                    
+                            resp = _FTP_GetResponse(c_sock, con);
                             Free(resp);
                         }
                         else
                         {
                             ConPrint(con, "usage: rm remote-file\n");
-                        }                        
+                        }
                         goto ftp_im_loop;
                     }
                     if (!StrICmp(im_argv[0], "rmdir"))
@@ -763,13 +763,13 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         {
                             StrPrint(ftp_cmd, "RMD %s\r\n", im_argv[1]);
                             sendString(c_sock, ftp_cmd, 0);
-                            resp = _FTP_GetResponse(c_sock, con);                    
+                            resp = _FTP_GetResponse(c_sock, con);
                             Free(resp);
                         }
                         else
                         {
                             ConPrint(con, "usage: rmdir directory-name\n");
-                        }                        
+                        }
                         goto ftp_im_loop;
                     }
                     if (!StrICmp(im_argv[0], "exit") || !StrICmp(im_argv[0], "quit"))
@@ -777,7 +777,7 @@ I64 CCMD_ftp(EConsole *con, I64 argc, U8 **argv)
                         im_exit = TRUE;
                         goto ftp_im_loop;
                     }
-                    ConPrint(con, "?Invalid command\n");                    
+                    ConPrint(con, "?Invalid command\n");
                 }
 ftp_im_loop:
                 FreeArgs(im_argc, im_argv);
@@ -789,10 +789,10 @@ ftp_im_loop:
             sendString(c_sock, "QUIT\r\n", 0);
             resp = _FTP_GetResponse(c_sock, con);
             if (resp) { Free(resp); };
-ftp_etx_close:            
+ftp_etx_close:
             Free(ftp_rl->ac);
             Free(ftp_rl->history);
-            Free(ftp_rl);            
+            Free(ftp_rl);
             close(c_sock);
             Free(ftp_cmd);
             return 0;
@@ -873,7 +873,7 @@ I64 CCMD_ifconfig(EConsole *con, I64 argc, U8 **argv)
     {
         ConPrint(con, "%s ", argv[i]);
     }
-    */    
+    */
     ConPrint(con, "en0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu %d\n",
         ETHERNET_FRAME_SIZE - 18);
     ConPrint(con, "        inet %d.%d.%d.%d  netmask %d.%d.%d.%d  broadcast %d.%d.%d.%d\n",
@@ -992,14 +992,14 @@ U0 _CCMD_ls_output(EConsole *con, CDirEntry *de, I64 flags)
                 perms[7] = cond(!(tmpde->user_data.u16[0] & 0x40),   'r', '-');     // world
 
                 perms[2] = cond(!(tmpde->user_data.u16[0] & 0x2),    'w', '-');     // owner
-                perms[5] = cond(!(tmpde->user_data.u16[0] & 0x10),   'w', '-');     // group   
+                perms[5] = cond(!(tmpde->user_data.u16[0] & 0x10),   'w', '-');     // group
                 perms[8] = cond(tmpde->user_data.u16[0] & 0x80,      'w', '-');     // world
 
                 perms[3] = cond(tmpde->user_data.u16[0] & 0x4,       'x', '-');     // owner
                 perms[6] = cond(tmpde->user_data.u16[0] & 0x20,      'x', '-');     // group
                 if (tmpde->user_data.u16[0] & 0x100)
                 {
-                    perms[9] = 'x';    
+                    perms[9] = 'x';
                 }
                 ConPrint(con, "%s ", &perms, cnt);
                 StrPrint(tmpsz, "%d", tmpde->user_data2);
@@ -1606,7 +1606,7 @@ I64 CCMD_lspci(EConsole *con, I64 argc, U8 **argv)
             default:
                 break;
         }
-        ConPrint(con, 
+        ConPrint(con,
             "%02x:%02x.%01x %s: %s %s\n",
             tmppci->bus,tmppci->dev,tmppci->fun,
             dev_class, tmppci->vendor_str,tmppci->dev_id_str);
@@ -1790,7 +1790,7 @@ I64 CCMD_ping(EConsole *con, I64 argc, U8 **argv)
                         etx = TRUE;
                         return 0;
                     }
-                }                
+                }
                 Sleep(1);
                 timeout++;
             }
@@ -1801,7 +1801,7 @@ I64 CCMD_ping(EConsole *con, I64 argc, U8 **argv)
                 time_resp = cnts.jiffies;
                 ConPrint(con, "%d bytes from %d.%d.%d.%d: icmp_seq=%d ttl=%d time=%d ms\n",
                     ipv4_pkt->length + 8,
-                    res_ip.u8[0], res_ip.u8[1], res_ip.u8[2], res_ip.u8[3], 
+                    res_ip.u8[0], res_ip.u8[1], res_ip.u8[2], res_ip.u8[3],
                     icmp_hdr->seq_number, ipv4_pkt->ttl, time_resp-time_req);
             }
             else
@@ -1824,7 +1824,7 @@ I64 CCMD_ping(EConsole *con, I64 argc, U8 **argv)
                         etx = TRUE;
                         return 0;
                     }
-                }                
+                }
                 Sleep(1);
                 wait_ctr++;
             }
@@ -1926,10 +1926,10 @@ I64 CCMD_rm(EConsole *con, I64 argc, U8 **argv)
                     {
                         Del(tmpde2->full_name,,FALSE);
                     }
-skip_parent:                
+skip_parent:
                     tmpde2 = tmpde2->next;
                 }
-            }       
+            }
             DirTreeDel(tmpde);
         }
         if (IsDir(argv[i]) && flags & 1 << CCMD_RM_OP_r)
@@ -2039,7 +2039,7 @@ I64 CCMD_uname(EConsole *con, I64 argc, U8 **argv)
         flags = 0x01FF; // Set all options.
     }
     for (i = 0; i < 8; i++)
-    { 
+    {
         switch (flags & 1 << i)
         {
             case 1 << CCMD_UNAME_OP_s:
@@ -2102,7 +2102,7 @@ I64 CCMD_unzip(EConsole *con, I64 argc, U8 **argv)
     {
         ConPrint(con, "Couldn't read ZIP file central record.\n");
         goto unzip_end_close;
-    }    
+    }
     retval = 0;
 unzip_end_close:
     StdioJZFile *f = zip->addr;
@@ -2207,7 +2207,7 @@ I64 CCMD_wmctrl(EConsole *con, I64 argc, U8 **argv)
             ConPrint(con, "wmctrl: extra operand '%s'\n", op_err);
             res = 1;
             break;
-        default:            
+        default:
             break;
     }
     if (op_err)
@@ -2216,7 +2216,7 @@ I64 CCMD_wmctrl(EConsole *con, I64 argc, U8 **argv)
         return res;
     }
     for (i = 0; i < StrLen(op_lst); i++)
-    { 
+    {
         switch (flags & 1 << i)
         {
             case 1 << CCMD_WMCTRL_OP_m:
@@ -2255,7 +2255,7 @@ I64 CCMD_wmctrl(EConsole *con, I64 argc, U8 **argv)
                             for (j=0; j<5-StrLen(&val);j++)
                             {
                                 ConPrint(con, " ");
-                            }                      
+                            }
                         }
                     }
                     ConPrint(con, "%s %s\n", wmgr->session->hostname, win->title);

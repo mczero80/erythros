@@ -69,9 +69,10 @@ SysFrameBufferInit;
 Fill2D(sys_fb);
 
 // Set the wallpaper
-EContext2D *test_wp = LoadPNG("System/Media/Wallpapers/Shiori.png");
-EWMSetWallpaper(test_wp);
-DelContext2D(test_wp);
+#include "System/Profile";
+SetWallpaper;
+// EContext2D *test_wp = LoadPNG("System/Media/Wallpapers/Shiori.png");
+
 
 // Test session info
 wmgr->session->id = 0;

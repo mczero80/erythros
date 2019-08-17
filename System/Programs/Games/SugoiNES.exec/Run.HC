@@ -132,11 +132,11 @@ while (1)
 	    if (KeyDown(Char2ScanCode('1')))
 	    {
 		    vid_scale=1;
-	    }	
+	    }
 	    if (KeyDown(Char2ScanCode('2')))
 	    {
 		    vid_scale=2;
-	    }	
+	    }
 	}
 
  	switch (my_task->menu_cb)
@@ -167,7 +167,7 @@ while (1)
     }
 
 	if (my_open_dlg && (my_open_dlg->msg_close ||
-        my_open_dlg->widgets->next->next->clicked)) 
+        my_open_dlg->widgets->next->next->clicked))
 	{
         my_open_dlg->widgets->next->next->clicked=FALSE;
         EWMDelWindow(my_open_dlg);
@@ -218,7 +218,7 @@ while (1)
         my_win = NULL;
 		Exit;
 	}
-    
+
     SetVideoScale;
     Sleep(1);
 }

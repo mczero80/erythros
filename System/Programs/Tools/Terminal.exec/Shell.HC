@@ -31,7 +31,7 @@ I64 ShellGetCmdEntries(CHashTable *tbl, U8 **entries=NULL)
 			}
 		}
 		tbl = tbl->next;
-	} 
+	}
 	return cnt;
 }
 
@@ -83,7 +83,7 @@ U0 ShellRefreshACDirEntries(EConReadLine *rl)
 	}
 	rl->ac->length[1] = ShellGetDirEntries;
 	rl->ac->entries[1] = CAlloc(sizeof(U64)*rl->ac->length[1]);
-	ShellGetDirEntries(rl->ac->entries[1]);	
+	ShellGetDirEntries(rl->ac->entries[1]);
 }
 
 U0 ShellRefreshACCmdEntries(EConReadLine *rl)
@@ -121,7 +121,7 @@ U0 Shell(EConsole *con)
 	U8 *shell_nul2;
 	U8 *shell_cur_dir = CAlloc(1024);
 	U8 *shell_prev_dir = CAlloc(1024);
-    CHashFun *ccmd;	
+    CHashFun *ccmd;
     I64 (*cexe)(EConsole *con, I64 argc, U8 **argv);
 
 	ConClear(con);
@@ -149,7 +149,7 @@ U0 Shell(EConsole *con)
 
 		shell_nul = StrReplace(shell_nul, blkdev.home_dir, "~");
 		Free(shell_nul2);
-        
+
 		StrPrint(con->win->title, "%s@%s: %s", wmgr->session->user, wmgr->session->hostname, shell_nul);
 		con->fg_color=0xADE25D00;
 		StrPrint(shell_pmt, "%s@%s", wmgr->session->user, wmgr->session->hostname);
