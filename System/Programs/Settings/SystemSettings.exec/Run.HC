@@ -38,7 +38,7 @@ my_task->fp_mask=".png";
 
 flags = (EWIN_HAS_ICON | EWIN_HAS_TITLE | EWIN_HAS_MINBTN);
 EWindow *my_win = EWMNewWindow(2, 2, 256+8, 240+28, CAlloc(1024), flags);
-// my_win->resizable = TRUE;
+my_win->resizable = TRUE;
 my_win->icon = my_task->icon;
 StrPrint(my_win->title, "System Settings");
 EWMAddWindow(my_task, my_win);
@@ -48,7 +48,7 @@ EWindow *my_open_dlg=NULL;
 #include "::/System/Profile.HC";
 I64 ChangeWallpaper(U8 *png_file)
 {
-  // Copy(png_file, "C:/Users/Default/DefaultWallpaper.png");
+  Copy(png_file, "C:/Users/Default/DefaultWallpaper.png"); // TODO: bad logic, shouldn't overwrite the default but rather store config in user profile
 	SetWallpaper(png_file);
 	return 0;
 }
@@ -79,6 +79,7 @@ while (1)
     default:
         break;
 	}
+
 
 	if (my_open_dlg && (my_open_dlg->msg_close ||
         my_open_dlg->widgets->next->next->clicked))
