@@ -956,7 +956,7 @@ upng_t* upng_new_from_file(U8 *filename)
         return upng;
 }
 
-EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_color)
+EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_color I64, resize_w=1, I64 resize_h=1)
 {
         EContext2D *ctx=NULL;
         I64 i,j;
@@ -974,7 +974,7 @@ EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_col
         h=upng_get_height(upng);
         bpp=upng_get_bpp(upng)/8; // **BYTES** per pixel.
 
-        ctx=NewContext2D(w, h, display.bpp);
+        ctx=NewContext2D(w / resize_w, h / resize_h, display.bpp); // apply resize, default=1 will be full size
 
         switch(upng->format)
         {
@@ -1002,7 +1002,7 @@ EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_col
 				        color.u8[1] = ptr[2];
 				        color.u8[2] = ptr[1];
 				        color.u8[3] = ptr[0];
-				        Plot2D(ctx, j, i, color);
+				        Plot2D(ctx, j / resize_w, i / resize_h, color); //resize if needed
 				}
 				break;
 			case UPNG_RGBA16:
@@ -1020,7 +1020,7 @@ EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_col
 				color.u8[1] = ptr[2];
 				color.u8[2] = ptr[1];
 				color.u8[3] = ptr[0];
-				Plot2D(ctx, j, i, color);
+				Plot2D(ctx, j / resize_w, i / resize_h, color);
 				break;
 			case UPNG_RGB16:
 				// TODO: 16bpp support.
@@ -1034,9 +1034,9 @@ EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_col
         return ctx;
 }
 
-EContext2D *LoadPNG(U8 *filename, I64 alpha_threshold=NULL, I64 alpha_color=0x00FF0000)
+EContext2D *LoadPNG(U8 *filename, I64 alpha_threshold=NULL, I64 alpha_color=0x00FF0000, I64 resize_w=1, I64 resize_h=1)
 { // Load (8bpp) RGB/RGBA PNG file into new Context2D.
         upng_t* upng;
         upng = upng_new_from_file(filename);
-        return PNGtoContext2D(upng, alpha_threshold, alpha_color);
+        return PNGtoContext2D(upng, alpha_threshold, alpha_color,resize_w,resize_h);
 }
