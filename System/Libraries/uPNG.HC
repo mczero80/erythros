@@ -956,7 +956,7 @@ upng_t* upng_new_from_file(U8 *filename)
         return upng;
 }
 
-EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_color I64, resize_w=1, I64 resize_h=1)
+EContext2D *PNGtoContext2D(upng_t* upng, I64 alpha_threshold=NULL, I64 alpha_color, I64 resize_w=1, I64 resize_h=1)
 {
         EContext2D *ctx=NULL;
         I64 i,j;
