@@ -746,7 +746,8 @@ U0 EWMTask()
 	I64 _avg;
 
 	// Startup tasks:
-	EWMNewTask("T:/System/Programs/Tools/System Monitor.exec");
+	EWMNewTask("C:/System/Programs/Tools/System Monitor.exec");
+	EWMNewTask("C:/System/Programs/Tools/Terminal.exec");
 	Spawn(&Netcfg,,,mp_cnt-1);
 
 	while (1) //The ride never ends...
