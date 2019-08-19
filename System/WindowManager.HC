@@ -4,15 +4,15 @@
 #define WMGR_WIN_MIN_WIDTH      180
 #define WMGR_WIN_MIN_Y              24
 
-EContext2D *tb_ctrl_power = LoadPNG("System/Media/Themes/Default/Icons/16/cog.png");
+EContext2D *tb_ctrl_power = LoadPNG("/System/Media/Themes/Default/Icons/16/cog.png");
 
-EContext2D *tb_ctrl_sound_normal = LoadPNG("System/Media/Themes/Default/Icons/16/sound.png");
-EContext2D *tb_ctrl_sound_low = LoadPNG("System/Media/Themes/Default/Icons/16/sound_low.png");
-EContext2D *tb_ctrl_sound_none = LoadPNG("System/Media/Themes/Default/Icons/16/sound_none.png");
-EContext2D *tb_ctrl_sound_mute = LoadPNG("System/Media/Themes/Default/Icons/16/sound_mute.png");
+EContext2D *tb_ctrl_sound_normal = LoadPNG("/System/Media/Themes/Default/Icons/16/sound.png");
+EContext2D *tb_ctrl_sound_low = LoadPNG("/System/Media/Themes/Default/Icons/16/sound_low.png");
+EContext2D *tb_ctrl_sound_none = LoadPNG("/System/Media/Themes/Default/Icons/16/sound_none.png");
+EContext2D *tb_ctrl_sound_mute = LoadPNG("/System/Media/Themes/Default/Icons/16/sound_mute.png");
 EContext2D *tb_ctrl_sound = tb_ctrl_sound_normal;
 
-EContext2D *tb_ctrl_net = LoadPNG("System/Media/Themes/Default/Icons/16/network_ethernet.png");
+EContext2D *tb_ctrl_net = LoadPNG("/System/Media/Themes/Default/Icons/16/network_ethernet.png");
 
 extern U0 EWMDelContextMenu(EContextMenu *cmenu);
 
@@ -428,10 +428,10 @@ EConsole *NewConsole(EWindow *win, EWidget *wgt)
 
 	EConsole *con=CAlloc(sizeof(EConsole));
 	con->term_ctx = NewContext2D(display.width, display.height, display.bpp);
-	
+
 	con->win=win;
 	con->wgt=wgt;
-	
+
 	con->ch_buf=DCNew(display.width, 1024);
 	con->fg_buf=CAlloc(display.width*1024);
 	con->bg_buf=CAlloc(display.width*1024);
@@ -445,7 +445,7 @@ EConsole *NewConsole(EWindow *win, EWidget *wgt)
 		con->fg_buf[_i]=0xFFFFFF00;
 		con->bg_buf[_i]=0x00000000;
 	}
-	
+
 	con->stdin=FifoU8New(1024);
 	con->stdout=FifoU8New(1024);
 	con->stderr=FifoU8New(1024);
@@ -454,7 +454,7 @@ EConsole *NewConsole(EWindow *win, EWidget *wgt)
 	con->hl_x2=-1;
 	con->hl_y1=-1;
 	con->hl_y2=-1;
-	
+
 	return con;
 }
 
@@ -708,7 +708,7 @@ F64 EWMTaskCount()
 		task1=task->next_child_task;
 		while (task1!=(&task->next_child_task)(U8 *)
         	-offset(CTask.next_sibling_task))
-		{		
+		{
 			cnt += 1.0;
 			task1=task1->next_sibling_task;
 		}
@@ -748,7 +748,7 @@ U0 EWMTask()
 	// Startup tasks:
 	EWMNewTask("T:/System/Programs/Tools/System Monitor.exec");
 	Spawn(&Netcfg,,,mp_cnt-1);
-	
+
 	while (1) //The ride never ends...
 	{
 		EWMSetMousePointer;
@@ -809,7 +809,7 @@ U0 EWMTask()
 		}
 
 		if (!mouse.lb && wmgr->desktop_select)
-		{ 
+		{
 			wmgr->desktop_sel_x2=mouse.x;
 			wmgr->desktop_sel_y2=mouse.y;
 			wmgr->desktop_select=FALSE;
@@ -1247,7 +1247,7 @@ U0 EWMTask()
 		{
 			task_box->text="Desktop";
 			//task_box->ctx=desktop_icon;
-			menu_bar->icon=desktop_icon;			
+			menu_bar->icon=desktop_icon;
 		}
 		// Draw Menu Bar.
 		DrawWindow2D(wmgr->ctx, menu_bar);
@@ -1316,14 +1316,14 @@ U0 EWMTask()
 			add_menu[0]->y = task_menu->y+4+(i*24);
 			add_menu[0]->width = task_menu->width;
 			j=0;
-			tm_de[1]=FilesFind("T:/System/Programs");
+			tm_de[1]=FilesFind("C:/System/Programs");
 			tm_de[0]=tm_de[1];
 			while (tm_de[0])
 			{
 				if (tm_de[0]->name[0]!='.' && tm_de[0]->attr & RS_ATTR_DIR == RS_ATTR_DIR)
 				{
 					add_item[1] = EWMAddContextMenuItem(add_menu[0], j, StrNew(tm_de[0]->name));
-					
+
 					add_menu[1] = EWMNewContextMenu;
 					add_menu[1]->task = task_menu_task;
 					add_menu[1]->is_submenu = TRUE;
@@ -1332,7 +1332,7 @@ U0 EWMTask()
 					add_menu[1]->x = add_menu[0]->x+task_menu->width-2;
 					add_menu[1]->y = add_menu[0]->y+(j*24);
 					add_menu[1]->width = task_menu->width;
-					StrPrint(tm_de_str,"T:/System/Programs/%s", tm_de[0]->name);
+					StrPrint(tm_de_str,"C:/System/Programs/%s", tm_de[0]->name);
 					k=1;
 					tm_de[3]=FilesFind(tm_de_str);
 					tm_de[2]=tm_de[3];
@@ -1348,10 +1348,10 @@ U0 EWMTask()
 						tm_de[2]=tm_de[2]->next;
 					}
 					DirTreeDel(tm_de[3]);
-					add_item[1]->submenu = add_menu[1];					
+					add_item[1]->submenu = add_menu[1];
 					j++;
 				}
-				i++;			
+				i++;
 				tm_de[0]=tm_de[0]->next;
 			}
 

@@ -65,7 +65,7 @@ class EConAutoComplete
 {
     I64 depth;
     I64 length[8];
-    U8 ***entries;    
+    U8 ***entries;
 }
 
 class EConHistory
@@ -248,7 +248,7 @@ U8 *StrCommonMatch(I64 size, U8 **strs)
         }
 
         /*
-        
+
         // Find if highest count >1
         j = 0;
         for (i = 0; i < 256; i++)
@@ -287,7 +287,7 @@ U8 *StrCommonMatch(I64 size, U8 **strs)
                 }
             }
             res[pos] = m;
-            pos++;                                               
+            pos++;
         }
 
         if (j == 1)
@@ -407,7 +407,7 @@ U8 *ConReadLine(EConsole *con, EConReadLine *rl, I64 size)
                                             }
                                             if (ac_match)
                                             {
-                                                ConPrint (con, "%s  ", ac_chk_str);                                         
+                                                ConPrint (con, "%s  ", ac_chk_str);
                                             }
                                         }
                                         ConPrint(con, "\n");
@@ -516,9 +516,9 @@ U8 *ConReadLine(EConsole *con, EConReadLine *rl, I64 size)
                                                 if (con->screen_x + ac_ew >= con->ch_width)
                                                 {
                                                     ConPrint(con, "\n");
-                                                }                                                
+                                                }
                                             }
-                                        }                                        
+                                        }
                                         ConPrint(con, "\n");
 
                                         for (i = 0; i < ac_argc-1; i++)
@@ -530,14 +530,14 @@ U8 *ConReadLine(EConsole *con, EConReadLine *rl, I64 size)
                                             FifoU8Ins(con->stdin, ' ');
 
                                         }
-                                        
+
                                         /*
                                         for (i = 0; i < StrLen(ac_argv[ac_argc-1]); i++)
                                         {
                                             FifoU8Ins(con->stdin, ac_argv[ac_argc-1][i]);
                                         }
                                         */
-                                        
+
                                         ac_res_str = StrCommonMatch(ac_match_pos, ac_matches);
                                         for (i = 0; i < StrLen(ac_res_str); i++)
                                         {
@@ -677,7 +677,7 @@ U0 ConDocDump(EConsole *con, CDoc *doc, CDocEntry *de=NULL)
 
 Bool CharIsHilighted(EConsole *con, I64 bx, I64 by)
 {
-    if (con->hl_x1==-1 || con->hl_x2==-1 || 
+    if (con->hl_x1==-1 || con->hl_x2==-1 ||
         con->hl_y1==-1 || con->hl_y2==-1)
     {
         return FALSE;
@@ -751,18 +751,18 @@ U0 ResetHilight(EConsole *con)
 U0 DrawConsoles(EConsole *consoles)
 {
     EConsole *con;
-    
+
     I64 bx, by, bc1, bc2, bc3;
     U32 fg, bg;
     while (1)
-    {        
+    {
         con = consoles->next;
         while (con)
         {
             if (!con->wgt)
             {
                 goto skip_update_con;
-            }            
+            }
             Fill2D(con->term_ctx, con->fill_color);
             for (by=0;by<con->ch_height;by++)
             {
@@ -782,18 +782,18 @@ U0 DrawConsoles(EConsole *consoles)
 
             if (con->win->has_alpha)
             {
-                for (by=0;by<con->win->height;by++)  
-                {   
-                    for (bx=0;bx<con->win->width;bx++)   
-                    {   
+                for (by=0;by<con->win->height;by++)
+                {
+                    for (bx=0;bx<con->win->width;bx++)
+                    {
                         bc1=Peek2D(con->term_ctx, bx, by);
-                        bc2=Peek2D(con->win->alpha_ctx, con->wgt->x+bx, con->wgt->y+by);  
-                        bc3.u8[1] = (bc2.u8[1] * 0.25) + (bc1.u8[1] * (1.0 - 0.25));    
-                        bc3.u8[2] = (bc2.u8[2] * 0.25) + (bc1.u8[2] * (1.0 - 0.25));    
-                        bc3.u8[3] = (bc2.u8[3] * 0.25) + (bc1.u8[3] * (1.0 - 0.25));    
-                        Plot2D(con->term_ctx, bx, by, bc3);   
-                    }   
-                }   
+                        bc2=Peek2D(con->win->alpha_ctx, con->wgt->x+bx, con->wgt->y+by);
+                        bc3.u8[1] = (bc2.u8[1] * 0.25) + (bc1.u8[1] * (1.0 - 0.25));
+                        bc3.u8[2] = (bc2.u8[2] * 0.25) + (bc1.u8[2] * (1.0 - 0.25));
+                        bc3.u8[3] = (bc2.u8[3] * 0.25) + (bc1.u8[3] * (1.0 - 0.25));
+                        Plot2D(con->term_ctx, bx, by, bc3);
+                    }
+                }
 
                 for (by=0;by<con->ch_height;by++)
                 { // Draw foreground text without alpha
@@ -809,7 +809,7 @@ U0 DrawConsoles(EConsole *consoles)
                     }
                 }
             }
-            
+
             if ((Blink || wmgr->active_key) && !con->disable_cursor)
             {
                 Rect2D(con->term_ctx, con->screen_x*6, con->screen_y*12, 6, 12, con->fg_color);
@@ -819,7 +819,7 @@ U0 DrawConsoles(EConsole *consoles)
             {
                 CopyRect2D(con->wgt->ctx, 0, 0, con->term_ctx);
             }
-skip_update_con:            
+skip_update_con:
             con=con->next;
         }
 

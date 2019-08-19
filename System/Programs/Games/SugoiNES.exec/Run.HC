@@ -123,7 +123,7 @@ U0 KillEmuTask()
 }
 
 wmgr->loading=FALSE;
-Cd("B:/");
+Cd("C:/");
 while (1)
 {
 

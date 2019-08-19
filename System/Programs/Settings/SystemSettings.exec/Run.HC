@@ -43,6 +43,33 @@ my_win->icon = my_task->icon;
 StrPrint(my_win->title, "System Settings");
 EWMAddWindow(my_task, my_win);
 
+
+// EWidget *ctx_gallery = EWMNewWidget(EWGT_CONTEXT2D, 4, 24,,,);
+// ctx_gallery->ctx=NewContext2D(display.width, display.height, display.bpp);
+
+// ctx_gallery->ctx=LoadPNG("C:/System/Media/Wallpapers/Beach.png",NULL,0x00FF0000,10,10);
+// DrawImages(ctx_gallery->ctx, 8, 8);
+// EWMAddWidget(my_win, ctx_gallery);
+
+// U0 DrawImages(EContext2D *ctx, I64 w, I64 h)
+// {
+// 	// ctx->alpha_color=0x00FF00FF;
+// 	// Fill2D(ctx, ctx->alpha_color);
+// 	I64 x,y;
+// 	for (y=0; y<ctx->height; y+=h)
+// 	{
+// 		for (x=0; x<ctx->width; x+=w)
+// 		{
+//       EWidget *ctx_image = EWMNewWidget(EWGT_CONTEXT2D, 12, 32);
+//       ctx_image->ctx=LoadPNG("C:/System/Media/Wallpapers/Beach.png",NULL,0x00FF0000,10,10);
+//       // ctx_image->ctx=LoadPNG("C:/System/Media/Wallpapers/Beach.png",NULL,0x00FF0000,10,10);
+//       EWMAddWidget(ctx_gallery, ctx_image);
+// 		}
+// 	}
+// }
+
+
+
 EWindow *my_open_dlg=NULL;
 
 #include "::/System/Profile.HC";
@@ -60,6 +87,11 @@ Cd("::/System/Media/Wallpapers");
 wmgr->loading=FALSE;
 while (1)
 {
+    // png_de=FilesFind(EWMGetOFSTextTarget(my_open_dlg));
+    // if (png_de)
+    // {
+      // StrPrint(my_fn, "%s/%s",DirCur, EWMGetOFSTextTarget(my_open_dlg));
+    // }
 
 	switch (my_task->menu_cb)
 	{
